@@ -2,7 +2,7 @@ import { Formik, Form, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { Label, Button } from './form.styled';
-import { addContact } from 'redux/phoneBookSlice';
+// import { addContact } from 'redux/phoneBookSlice';
 export const FormData = ({ onSubmit }) => {
   const nameId = nanoid();
   const tagInputId = nanoid();
@@ -27,7 +27,7 @@ export const FormData = ({ onSubmit }) => {
       return alert(`${name} is already exist!`);
     }
 
-    dispatch(addContact(newContacts));
+    // dispatch(addContact(newContacts));
 
     resetForm();
   };
