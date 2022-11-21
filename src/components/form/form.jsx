@@ -2,8 +2,12 @@ import { Formik, Form, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { Label, Button } from './form.styled';
-// import { addContact } from 'redux/phoneBookSlice';
-export const FormData = ({ onSubmit }) => {
+import { getContacts } from 'redux/selectors';
+import { addContacts } from 'redux/operations';
+
+export const FormData = () => {
+  const dispatch = useDispatch();
+  const items = useSelector(getContacts);
   const nameId = nanoid();
   const tagInputId = nanoid();
   const id = nanoid();
@@ -11,9 +15,6 @@ export const FormData = ({ onSubmit }) => {
     name: '',
     number: '',
   };
-
-  const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
 
   const handleSubmit = (values, { resetForm }) => {
     const { name, number } = values;
@@ -23,11 +24,10 @@ export const FormData = ({ onSubmit }) => {
       name,
       number,
     };
-    if (contacts.find(contact => contact.name === name)) {
+    if (items.find(contact => contact.name === name)) {
       return alert(`${name} is already exist!`);
     }
-
-    // dispatch(addContact(newContacts));
+    dispatch(addContacts(newContacts));
 
     resetForm();
   };
